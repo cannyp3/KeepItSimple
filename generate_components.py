@@ -1,0 +1,78 @@
+import os
+import json
+import re
+
+def generate_html_from_file(file_path, file_name):
+    """Generate HTML content based on file name conventions."""
+    with open(file_path, 'r') as f:
+        content = f.read().strip()
+
+    if file_name == 'address.txt':
+        return f'<div class="content"><a href="https://maps.google.com/?q={content}">{content}</a></div>'
+    elif file_name == 'email.txt':
+        return f'<div class="content"><a href="mailto:{content}">{content}</a></div>'
+    elif file_name == 'phone.txt':
+        # Simple regex to remove non-numeric characters for the tel: link
+        tel_link = re.sub(r'[\D]', '', content)
+        return f'<div class="content"><a href="tel:{tel_link}">{content}</a></div>'
+    elif file_name == 'hours.txt':
+        table_rows = ''
+        special_notes = ''
+        for line in content.split('\n'):
+            if ':' in line:
+                day, hours = line.split(':', 1)
+                # Check for special notes like Christmas Eve
+                if day.lower() not in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
+                    special_notes += f'<div class="hours-note">{day}: {hours.strip()}</div>'
+                else:
+                    table_rows += f'<tr><td>{day.strip()}</td><td>{hours.strip()}</td></tr>'
+        return f'''
+            <div class="content">
+                <table class="hours-table">
+                    <thead><tr><th>Day</th><th>Hours</th></tr></thead>
+                    <tbody>{table_rows}</tbody>
+                </table>
+                {special_notes}
+            </div>
+        '''
+    else:
+        # Default case for generic text files
+        return f'<p>{content}</p>'
+
+
+def main():
+    """Scan the components directory and generate components.json."""
+    components_dir = 'components'
+    output_data = {
+        "components": {},
+        "aliases": {},
+        "defaultPinned": ["Hours of Operation", "Address", "Email", "Phone"]
+    }
+
+    for file_name in os.listdir(components_dir):
+        if file_name.endswith('.txt'):
+            file_path = os.path.join(components_dir, file_name)
+            # Create component name from file name (e.g., hours.txt -> Hours)
+            base_name = file_name.replace('.txt', '')
+            component_name = base_name.replace('_', ' ').replace('-', ' ').title()
+            
+            # Special case for Contact Us
+            if component_name == 'Contact':
+                component_name = 'Contact Us'
+            elif component_name == 'Joke':
+                component_name = 'Random Joke'
+            elif component_name == 'Hours':
+                component_name = 'Hours of Operation'
+
+            html_content = generate_html_from_file(file_path, file_name)
+            
+            output_data["components"][component_name] = {"content": html_content}
+            output_data["aliases"][component_name] = base_name
+
+    with open('components.json', 'w') as f:
+        json.dump(output_data, f, indent=4)
+    
+    print("Successfully generated components.json")
+
+if __name__ == '__main__':
+    main()

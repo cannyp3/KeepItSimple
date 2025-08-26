@@ -1,0 +1,40 @@
+{
+    "components": {
+        "Address": {
+            "content": "<div class=\"content\"><a href=\"https://maps.google.com/?q=350 Fifth Avenue New York NY 10118\">350 Fifth Avenue New York NY 10118</a></div>"
+        },
+        "Hours of Operation": {
+            "content": "\n            <div class=\"content\">\n                <table class=\"hours-table\">\n                    <thead><tr><th>Day</th><th>Hours</th></tr></thead>\n                    <tbody><tr><td>Monday</td><td>9:00 AM - 5:00 PM</td></tr><tr><td>Tuesday</td><td>9:00 AM - 5:00 PM</td></tr><tr><td>Wednesday</td><td>9:00 AM - 5:00 PM</td></tr><tr><td>Thursday</td><td>9:00 AM - 7:00 PM</td></tr><tr><td>Friday</td><td>9:00 AM - 5:00 PM</td></tr><tr><td>Saturday</td><td>Closed</td></tr><tr><td>Sunday</td><td>Closed</td></tr></tbody>\n                </table>\n                <div class=\"hours-note\">Christmas Eve: 9:00 AM - 12:00 PM</div>\n            </div>\n        "
+        },
+        "Contact Us": {
+            "content": "<p>You can reach us at simple@example.com</p>"
+        },
+        "Email": {
+            "content": "<div class=\"content\"><a href=\"mailto:contact@fictionalbusiness.com\">contact@fictionalbusiness.com</a></div>"
+        },
+        "Random Joke": {
+            "content": "<p>Why don't skeletons fight each other? They don't have the guts.</p>"
+        },
+        "History": {
+            "content": "<p>Our business was founded in 2020 with the goal of simplicity.</p>"
+        },
+        "Phone": {
+            "content": "<div class=\"content\"><a href=\"tel:1234567890\">(123) 456-7890</a></div>"
+        }
+    },
+    "aliases": {
+        "Address": "address",
+        "Hours of Operation": "hours",
+        "Contact Us": "contact",
+        "Email": "email",
+        "Random Joke": "joke",
+        "History": "history",
+        "Phone": "phone"
+    },
+    "defaultPinned": [
+        "Hours of Operation",
+        "Address",
+        "Email",
+        "Phone"
+    ]
+}
