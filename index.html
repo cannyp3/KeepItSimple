@@ -1,24 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fictional Business</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Fictional Business</h1>
-    
-    <div id="starter-components">
-        <!-- Pinned components will be rendered here -->
-    </div>
-    
-    <hr>
-    
-    <h2>Search for More Components</h2>
-    <input type="text" id="search-bar" placeholder="Search for components...">
-    
-    <div id="related-components">
-        <!-- Search results will be rendered here -->
-    </div>
+
+    <header>
+        <h1>Fictional Business</h1>
+    </header>
+
+    <main>
+        <section aria-labelledby="pinned-components-heading">
+            <h2 id="pinned-components-heading" class="visually-hidden">Pinned Components</h2>
+            <div id="starter-components" aria-live="polite">
+                <!-- Pinned components will be rendered here -->
+            </div>
+        </section>
+        
+        <hr>
+        
+        <div role="search">
+            <label for="search-bar" class="visually-hidden">Search for more information on the business/label>
+            <input type="text" id="search-bar" placeholder="Search for more information...">
+        </div>
+        
+        <section aria-labelledby="related-components-heading">
+            <h2 id="related-components-heading" class="visually-hidden">Search Results</h2>
+            <div id="related-components" aria-live="polite">
+                <!-- Search results will be rendered here -->
+            </div>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>

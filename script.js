@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let reverseComponentAliases = {};
     let defaultPinned = [];
     let pinnedComponents = new Set();
+    let isSearchActive = false;
 
     async function initializeApp() {
         try {
@@ -80,14 +81,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Rendering ---
 
     function createComponentHTML(componentName, innerContent, isPinned) {
-        const buttonText = isPinned ? 'Unpin' : 'Pin';
+        const pinIcon = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <title>Pin</title>
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M9 4v6l-2 4v2h10v-2l-2 -4v-6"></path>
+                <line x1="12" y1="16" x2="12" y2="21"></line>
+                <line x1="8" y1="4" x2="16" y2="4"></line>
+            </svg>`;
+
+        const unpinIcon = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <title>Unpin</title>
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M9 4v6l-2 4v2h10v-2l-2 -4v-6z"></path>
+                <line x1="12" y1="16" x2="12" y2="21"></line>
+                <line x1="8" y1="4" x2="16" y2="4"></line>
+            </svg>`;
+
+        const buttonIcon = isPinned ? unpinIcon : pinIcon;
         const buttonClass = isPinned ? 'unpin-button' : 'pin-button';
+        const buttonAriaLabel = isPinned ? 'Unpin' : 'Pin';
+
         return `
             <div class="card" data-component-name="${componentName}">
                 <div class="card-header">
                     <h2>${componentName}</h2>
-                    <button class="${buttonClass}" data-component="${componentName}">
-                        ${buttonText}
+                    <button class="${buttonClass}" data-component="${componentName}" aria-label="${buttonAriaLabel}">
+                        ${buttonIcon}
                     </button>
                 </div>
                 ${innerContent}
@@ -107,7 +128,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const query = searchBar.value.toLowerCase();
-        if (query.length >= MIN_QUERY_LENGTH) {
+        const queryIsLongEnough = query.length >= MIN_QUERY_LENGTH;
+
+        if (queryIsLongEnough) {
             let relatedHTML = '';
             for (const [name, data] of Object.entries(components)) {
                 if (name.toLowerCase().includes(query) && !pinnedComponents.has(name)) {
@@ -115,16 +138,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             relatedComponents.innerHTML = relatedHTML;
+
+            // Scroll to results only when search begins and there are results
+            if (!isSearchActive && relatedHTML) {
+                document.getElementById('related-components').scrollIntoView({ behavior: 'smooth' });
+            }
         }
+        
+        isSearchActive = queryIsLongEnough;
     }
 
     // --- Event Handlers ---
 
     function handlePinClick(e) {
-        const target = e.target;
-        if (!target.matches('.pin-button, .unpin-button')) return;
+        const button = e.target.closest('.pin-button, .unpin-button');
+        if (!button) return;
 
-        const componentName = target.dataset.component;
+        const componentName = button.dataset.component;
 
         if (pinnedComponents.has(componentName)) {
             pinnedComponents.delete(componentName);
