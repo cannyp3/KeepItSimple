@@ -25,6 +25,9 @@ def generate_html_from_file(content, file_name):
             html += f'<p style="text-align: center; font-style: italic; margin-top: 0.5rem; font-size: 0.9em;">{caption}</p>'
         return f'<div class="content">{html}</div>'
 
+    if file_name == 'business_name.txt':
+        return content
+
     if file_name == 'address.txt':
         return f'<div class="content"><a href="https://maps.google.com/?q={content}">{content}</a></div>'
     elif file_name == 'email.txt':

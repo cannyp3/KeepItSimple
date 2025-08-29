@@ -28,6 +28,16 @@ document.addEventListener('DOMContentLoaded', () => {
             defaultPinned = data.defaultPinned;
             reverseComponentAliases = Object.fromEntries(Object.entries(componentAliases).map(([key, value]) => [value, key]));
 
+            // Set the business title from the dedicated component
+            if (components['Business Name']) {
+                const businessName = components['Business Name'].content;
+                document.title = businessName;
+                document.getElementById('business-title').textContent = businessName;
+                // Remove from main component list to prevent rendering as a card
+                delete components['Business Name'];
+                delete componentAliases['Business Name'];
+            }
+
             initializePinnedState();
             render();
             updateURL();

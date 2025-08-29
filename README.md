@@ -16,6 +16,10 @@ All of your website's content is stored as plain text (`.txt`) files in the `com
 -   **To add a new section:** Create a new `.txt` file in the `components` folder. The name of the file will become the title of the component (e.g., `our-mission.txt` will create a component called "Our Mission").
 -   **To remove a section:** Simply delete the corresponding `.txt` file from the `components` folder.
 
+#### Updating the Business Name
+
+The main business name, which appears in the page title and header, is also managed as a component. To change it, simply edit the content of the `components/business_name.txt` file.
+
 #### Adding Search Keywords
 
 To improve the searchability of your components, you can add a line of comma-separated keywords to any `.txt` file in the `components` directory. These keywords will be used by the search bar but will not be displayed on the page.
