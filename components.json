@@ -20,6 +20,10 @@
             "content": "<p>Why don't skeletons fight each other? They don't have the guts.</p>",
             "keywords": "funny, humor, laugh, silly, entertainment"
         },
+        "Business Photo": {
+            "content": "<div class=\"content\"><img src=\"images/storefront.jpg\" alt=\"A photo of our lovely storefront.\" style=\"width:100%; height:auto; border-radius: 4px;\"><p style=\"text-align: center; font-style: italic; margin-top: 0.5rem; font-size: 0.9em;\">A photo of our lovely storefront.</p></div>",
+            "keywords": "photo, gallery, store, location, picture"
+        },
         "History": {
             "content": "<p>Our business was founded in 2020 with the goal of simplicity.</p>",
             "keywords": "about us, story, background, company information, founded"
@@ -35,6 +39,7 @@
         "Contact Us": "contact",
         "Email": "email",
         "Random Joke": "joke",
+        "Business Photo": "business_photo",
         "History": "history",
         "Phone": "phone"
     },

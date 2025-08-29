@@ -4,6 +4,27 @@ import re
 
 def generate_html_from_file(content, file_name):
     """Generate HTML content based on file name conventions."""
+    
+    image_path = None
+    caption_lines = []
+    content_lines = content.split('\n')
+    
+    # Check for image directive
+    if content_lines and content_lines[0].lower().startswith('image:'):
+        image_path = content_lines[0].split(':', 1)[1].strip()
+        caption_lines = content_lines[1:]
+        caption = '\n'.join(caption_lines).strip()
+
+        # Generate alt text from caption or filename
+        alt_text = caption if caption else file_name.replace(".txt", "").replace("_", " ").title()
+        
+        # Basic styling for responsive images
+        html = f'<img src="{image_path}" alt="{alt_text}" style="width:100%; height:auto; border-radius: 4px;">'
+        if caption:
+            # Add a caption below the image
+            html += f'<p style="text-align: center; font-style: italic; margin-top: 0.5rem; font-size: 0.9em;">{caption}</p>'
+        return f'<div class="content">{html}</div>'
+
     if file_name == 'address.txt':
         return f'<div class="content"><a href="https://maps.google.com/?q={content}">{content}</a></div>'
     elif file_name == 'email.txt':

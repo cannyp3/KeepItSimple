@@ -1,0 +1,3 @@
+image: images/storefront.jpg
+A photo of our lovely storefront.
+keywords: photo, gallery, store, location, picture

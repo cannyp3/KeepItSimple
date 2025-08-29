@@ -30,6 +30,18 @@ keywords: about us, story, background, company information, founded
 
 You can add these keywords manually, or for a faster workflow, you can use an LLM to suggest relevant keywords based on the component's content.
 
+#### Adding Images
+
+You can also add components that display an image. To do this, create a `.txt` file where the first line uses the `image:` directive. Any subsequent lines will be used as the image caption and accessible alt text.
+
+**Example (`our-store.txt`):**
+```
+image: https://via.placeholder.com/600x400.png?text=Our+Store
+This is a photo of our storefront.
+```
+
+You can use a URL for an image hosted online, or you can add an `images` folder to your project and reference a local file like `image: images/my-photo.jpg`.
+
 ### Step 2: Publish Your Changes
 
 After you have finished editing the content files, you need to run a command to publish your changes to the live website.
