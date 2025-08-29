@@ -1,6 +1,6 @@
 # Keep It Simple Business Page
 
-This project is a simple, customizable, single-page website designed for small businesses. It allows for easy content updates without needing to edit any complex code.
+This project is a simple, customizable, highly accessible, single-page website designed for small businesses. It allows for easy content updates without needing to edit any complex code.
 
 The page is built with HTML, CSS, and vanilla JavaScript. It features a component-based system where information is displayed in cards that can be pinned, unpinned, and shared via a URL.
 
