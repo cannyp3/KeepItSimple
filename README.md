@@ -16,6 +16,20 @@ All of your website's content is stored as plain text (`.txt`) files in the `com
 -   **To add a new section:** Create a new `.txt` file in the `components` folder. The name of the file will become the title of the component (e.g., `our-mission.txt` will create a component called "Our Mission").
 -   **To remove a section:** Simply delete the corresponding `.txt` file from the `components` folder.
 
+#### Adding Search Keywords
+
+To improve the searchability of your components, you can add a line of comma-separated keywords to any `.txt` file in the `components` directory. These keywords will be used by the search bar but will not be displayed on the page.
+
+The line must start with `keywords:`.
+
+**Example (`history.txt`):**
+```
+Our business was founded in 2020 with the goal of simplicity.
+keywords: about us, story, background, company information, founded
+```
+
+You can add these keywords manually, or for a faster workflow, you can use an LLM to suggest relevant keywords based on the component's content.
+
 ### Step 2: Publish Your Changes
 
 After you have finished editing the content files, you need to run a command to publish your changes to the live website.

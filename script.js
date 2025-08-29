@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Activate UI elements now that data is loaded
             searchBar.disabled = false;
-            searchBar.placeholder = "Search for components...";
+            searchBar.placeholder = "Search for more information";
             searchBar.addEventListener('input', render);
             document.addEventListener('click', handlePinClick);
 
@@ -133,7 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (queryIsLongEnough) {
             let relatedHTML = '';
             for (const [name, data] of Object.entries(components)) {
-                if (name.toLowerCase().includes(query) && !pinnedComponents.has(name)) {
+                const searchableText = `${name.toLowerCase()} ${data.keywords ? data.keywords.toLowerCase() : ''}`;
+                if (searchableText.includes(query) && !pinnedComponents.has(name)) {
                     relatedHTML += createComponentHTML(name, data.content, false);
                 }
             }

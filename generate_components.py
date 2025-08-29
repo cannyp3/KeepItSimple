@@ -2,11 +2,8 @@ import os
 import json
 import re
 
-def generate_html_from_file(file_path, file_name):
+def generate_html_from_file(content, file_name):
     """Generate HTML content based on file name conventions."""
-    with open(file_path, 'r') as f:
-        content = f.read().strip()
-
     if file_name == 'address.txt':
         return f'<div class="content"><a href="https://maps.google.com/?q={content}">{content}</a></div>'
     elif file_name == 'email.txt':
@@ -22,7 +19,7 @@ def generate_html_from_file(file_path, file_name):
             if ':' in line:
                 day, hours = line.split(':', 1)
                 # Check for special notes like Christmas Eve
-                if day.lower() not in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
+                if day.lower().strip() not in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
                     special_notes += f'<div class="hours-note">{day}: {hours.strip()}</div>'
                 else:
                     table_rows += f'<tr><td>{day.strip()}</td><td>{hours.strip()}</td></tr>'
@@ -52,6 +49,20 @@ def main():
     for file_name in os.listdir(components_dir):
         if file_name.endswith('.txt'):
             file_path = os.path.join(components_dir, file_name)
+            
+            with open(file_path, 'r') as f:
+                lines = f.readlines()
+            
+            content_lines = []
+            keywords = ''
+            for line in lines:
+                if line.strip().lower().startswith('keywords:'):
+                    keywords = line.strip().split(':', 1)[1].strip()
+                else:
+                    content_lines.append(line)
+            
+            content = ''.join(content_lines).strip()
+
             # Create component name from file name (e.g., hours.txt -> Hours)
             base_name = file_name.replace('.txt', '')
             component_name = base_name.replace('_', ' ').replace('-', ' ').title()
@@ -64,9 +75,12 @@ def main():
             elif component_name == 'Hours':
                 component_name = 'Hours of Operation'
 
-            html_content = generate_html_from_file(file_path, file_name)
+            html_content = generate_html_from_file(content, file_name)
             
-            output_data["components"][component_name] = {"content": html_content}
+            output_data["components"][component_name] = {
+                "content": html_content,
+                "keywords": keywords
+            }
             output_data["aliases"][component_name] = base_name
 
     with open('components.json', 'w') as f:
