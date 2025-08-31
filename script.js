@@ -127,6 +127,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function render() {
+        const originalValue = searchBar.value; 
+        const sanitizedValue = originalValue.replace(/[^a-zA-Z0-9 ]/g, ''); 
+        if (originalValue !== sanitizedValue) { 
+            searchBar.value = sanitizedValue;  
+        }
         starterComponents.innerHTML = '';
         relatedComponents.innerHTML = '';
 
